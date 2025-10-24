@@ -1,0 +1,885 @@
+Nice — I’ll walk you through a complete, step-by-step Jira Cloud workflow for creating and running a Scrum project named roll number, adding issues (Story, Bug, Task), starting a sprint, moving issues across columns (To Do → In Progress → Done), adding a new workflow status Code Review, and verifying it appears on the board — finishing with how to view/generate the Sprint Report. I’ll explain exact clicks, where to type, and what to check so you can follow along in Jira Cloud (if you use Jira Server/Data Center some labels/menus may differ slightly — I’ll note differences where relevant).
+
+1) Create a new Scrum project called roll number
+
+Sign in to Jira (your Jira Cloud instance).
+
+In the top-left corner click Projects → Create project.
+
+On the “Create project” dialog:
+
+Choose Scrum (the Scrum software development template).
+
+Click Use template (or Next).
+
+On the project setup screen:
+
+Project name: type roll number
+
+Project key: Jira will propose one (e.g., ROLL); you can accept or edit (short uppercase string recommended).
+
+Project lead: set if you want (yourself by default).
+
+Select project access (Open, Limited, or Private) according to who should see it.
+
+Click Create project (or Create). Jira will create the project and open its board (Backlog view for Scrum projects).
+
+What you should see: the project sidebar, the Backlog page with an empty sprint section (or “Create sprint” button) and the board under Active sprints once a sprint starts.
+
+2) Add at least 3 issues of different types (Story, Bug, Task)
+
+Do this from the Backlog (recommended) or from the Project’s Issues menu.
+
+From Backlog (recommended):
+
+Go to your project → Backlog.
+
+At the top of the backlog you’ll see a quick-add row (or a Create issue button).
+
+Create three issues one by one:
+
+Create a Story
+
+Click Create issue (or the “+ Create issue in roll number” line).
+
+In the inline fields:
+
+Issue Type: select Story.
+
+Summary: User login page (example).
+
+Description: short acceptance criteria, e.g., As a user I can log in with email and password. Acceptance: ...
+
+(Optional) Set Priority, Assignee, Epic Link or Labels.
+
+Press Enter or Add.
+
+Create a Bug
+
+Click Create issue again.
+
+Issue Type: Bug
+
+Summary: Login button not responding on mobile
+
+Description: steps to reproduce, expected vs actual
+
+Add.
+
+Create a Task
+
+Create a third:
+
+Issue Type: Task
+
+Summary: Write unit tests for auth module
+
+Description: list of modules to cover
+
+Add.
+
+Alternate: Global Create
+
+Use the global Create (top navigation). Fill Project = roll number, choose Issue type (Story/Bug/Task) and fill fields. Click Create.
+
+After creation: the issues appear in the Backlog list. You can drag them to prioritize.
+
+3) Create and start a Sprint, then move issues through board columns (To Do → In Progress → Done)
+Create a Sprint
+
+On your project, click Backlog.
+
+Near the top of the backlog you’ll see a Create sprint button (usually above the backlog list). Click it.
+
+A grey “Sprint 1” panel appears. You can rename it by clicking the title (e.g., Sprint 1 — Oct 2025).
+
+Add issues to the Sprint
+
+Drag the Story, Bug, and Task from the backlog into the Sprint panel.
+
+Confirm the sprint’s estimate/story points if your board uses estimation (click the issue → edit Story Points or use the inline field).
+
+Start the Sprint
+
+With the Sprint populated, click Start sprint (button inside the sprint panel).
+
+A dialog appears asking:
+
+Sprint name (edit if needed)
+
+Start date and end date (set duration, e.g., 2 weeks)
+
+Goal (enter a Sprint Goal brief)
+
+Click Start. The project view will switch to Active sprints and the board shows the sprint board columns (To Do, In Progress, Done, etc.).
+
+Move issues across statuses (columns)
+
+You have two common ways:
+
+A. Using the Board (drag & drop)
+
+Go to Active sprints (Board).
+
+You should see issues as cards in the first column (To Do).
+
+Drag a card from To Do to In Progress — this executes the underlying workflow transition (e.g., Open → In Progress).
+
+When work finishes, drag from In Progress → Done. That completes the issue.
+
+B. From inside an issue
+
+Click an issue to open the detail view.
+
+Use the Status button/dropdown near the top (it shows current status). Click it and choose the target status (e.g., In Progress → Done). You may be asked to fill a Transition screen (comment, resolution). Fill and confirm.
+
+Notes/Troubleshooting
+
+If a column is mapped to multiple statuses or an issue can’t be moved, check the board column-to-status mapping (Board settings → Columns).
+
+If transition screens are mandatory (like “Resolution”), you must fill required fields.
+
+4) Add a new status called Code Review in the workflow and verify it appears on the board
+
+Two approaches: edit workflow scheme for the project or customize the board columns to include a new status. Best practice: add the status to the workflow and then map it to a column on the board.
+
+Important: Editing workflows typically requires Jira Admin permissions. If you’re a project admin only, you can add a column mapped to an unused status; but adding a new status requires admin rights.
+
+A. Create a new status (if it doesn’t exist)
+
+Jira Admin: go to the Jira settings (⚙️) → Issues → Statuses.
+
+Click Add status.
+
+Name: Code Review
+
+Description: Work under peer/PR review
+
+Category: choose In Progress (or To Do/Done depending on how you want reports — usually In Progress is fine).
+
+Click Add.
+
+B. Add Code Review to the project workflow
+
+Jira Admin: go to ⚙️ Issues → Workflows.
+
+Find the workflow used by your project. If it’s an active shared workflow, you’ll likely need to Copy it to edit (recommended) to avoid changing other projects.
+
+Click Copy or Edit (if unused or draft).
+
+In the diagram editor (visual):
+
+Click Add status (or the + icon), choose Code Review (the new status), place it near In Progress/Done.
+
+Create transitions:
+
+From In Progress → Code Review (name transition e.g., “Send to Code Review”).
+
+From Code Review → In Progress (if review fails; e.g., “Reopen”).
+
+From Code Review → Done (if review passes and merged).
+
+Configure required transition screens if needed (e.g., reviewer comment).
+
+Validate (there’s usually a Validate or Publish draft step).
+
+Publish the workflow:
+
+If you edited a draft, click Publish and select how to map statuses for existing issues when asked.
+
+Apply the workflow to the roll number project (via a Workflow Scheme). If you copied a workflow, create/assign a Workflow Scheme to your project.
+
+C. Map the new status to a board column
+
+Go to your project → Board → top-right … (board menu) → Board settings.
+
+Select Columns.
+
+You’ll see board columns (To Do, In Progress, Done). Click Add column.
+
+Column name: Code Review (or keep In Progress with sub-status; but adding separate column is clear).
+
+Under the new column, click Add status (or dragCode Review from the Unmapped Statuses area into the column).
+
+Save/close board settings.
+
+D. Verify it appears on the board
+
+Go to Active sprints (board). You should now see the Code Review column between In Progress and Done (or wherever you added it).
+
+Move an issue from In Progress to Code Review — it should transition in the workflow and the card appears in the Code Review column.
+
+If the column doesn’t show, refresh the board and re-check column mapping (Board settings → Columns).
+
+5) Generate / view a Sprint Report after completing the sprint
+
+Sprint reports are available in Scrum projects to review completed work, added/removed issues, burndown, etc.
+
+Finish the Sprint
+
+On the Active sprints board, click Complete sprint (top-right).
+
+Jira will show a dialog listing incomplete issues and ask whether to move them to the backlog or the next sprint — choose as needed and confirm Complete.
+
+View Sprint Report
+
+Go to your project sidebar → Reports.
+
+In the Reports list click Sprint Report (or Sprint Report under the “Agile” reports).
+
+Select the sprint you want to view (the dropdown lists recent sprints). Choose the sprint you just completed (e.g., Sprint 1 — Oct 2025).
+
+The Sprint Report displays:
+
+Sprint goal (if set)
+
+Completed issues
+
+Issues not completed (and where they moved)
+
+Issues added during the sprint (scope changes)
+
+Burndown chart link (if you want Active Sprint Burndown)
+
+Use the “Export” or “Print” browser option to save a static copy; Jira also has Export CSV on Issues search if you want raw data.
+
+Additional useful reports
+
+Burndown Chart (during sprint for daily progress)
+
+Velocity Chart (after several sprints to see team throughput)
+
+Issue Statistics / Control Chart for cycle times
+
+Extra tips, housekeeping & permissions
+
+Permissions: Creating statuses and editing workflows requires Jira Administrator permission. Project admins can manage board columns and issues but might not be able to change workflows. If you lack permissions, ask your Jira admin to perform the workflow changes or grant the necessary rights.
+
+Test changes on a copy: If the workflow is shared, copy it and test on the copied workflow + new Workflow Scheme to avoid impacting other projects.
+
+Transition screens & validators: When editing a workflow, you can add conditions, validators and post functions to enforce rules (e.g., require PR link when moving to Code Review).
+
+Resolutions: When moving to Done make sure the transition sets the Resolution field (some teams require it).
+
+Automation: Use Jira Automation (Project settings → Automation) to auto-assign reviewers when an issue moves to Code Review, or add labels, etc.
+
+Estimation: If using Story Points, enable estimation in Board Settings → Estimation. For Tasks/Bugs you can use Story Points or a different field.
+
+Board filter: Board behavior depends on the Board’s filter (Board settings → General). Ensure the project issues are included by the filter JQL such as project = "ROLL" or similar.
+
+Bulk operations: You can bulk change issues (Tools → Bulk change) if you need to move many issues into the new status or sprint.
+
+Quick checklist (one-page summary)
+
+Create project: Projects → Create project → Scrum → Name: roll number.
+
+Add issues: Backlog → Create issue → Add Story, Bug, Task (fill Summary, Description, Story Points).
+
+Create sprint: Backlog → Create sprint → Drag issues into sprint → Start sprint.
+
+Move issues: Active sprints → Drag cards across columns or open issue → change Status.
+
+Add Code Review:
+
+Admin: Jira settings → Issues → Statuses → Add Code Review
+
+Admin: Issues → Workflows → edit workflow → Add status & transitions → Publish & apply to project
+
+Board settings → Columns → Add Code Review column & map the status.
+
+Verify: Active sprints board shows Code Review. Move issue into it.
+
+Complete sprint → Project → Reports → Sprint Report → choose sprint → view/export.
+
+If you want, I can:
+
+Give the exact JQL for a useful board filter (e.g., project = ROLL AND issuetype in (Story, Bug, Task)).
+
+Provide recommended transition screens/fields for Code Review (example: required PR link field, reviewer, comment).
+
+Generate a short template for Sprint Goal and Definition of Done you can paste into Jira sprint descriptions.
+
+Which of those would you like now?
+
+
+
+
+
+
+
+
+
+
+
+
+
+2)
+
+
+clone or fork a repositary  make code canges  locally and push the changes and bild the project in jenkins using maven configure email notifications
+ChatGPT said:
+
+Perfect — that’s a real-world DevOps workflow:
+👉 Git (clone/fork, code change, push) → Jenkins CI/CD (build via Maven) → Email notifications.
+
+I’ll explain each step in detail — from GitHub to Jenkins — so you can actually perform it end-to-end.
+🔹 OVERVIEW OF WHAT YOU’LL DO
+
+Fork or Clone a GitHub Repository
+
+Make code changes locally
+
+Push the changes back to GitHub
+
+Create a Jenkins Job (Freestyle or Pipeline)
+
+Configure Jenkins to build the project using Maven
+
+Add Email Notifications for build success/failure
+
+🧩 1) Fork or Clone a Repository
+Option A: Fork (if you don’t have write access)
+
+Go to the target GitHub repository page (e.g., https://github.com/someone/sample-maven-project).
+
+Click Fork (top-right).
+
+Choose your GitHub account as the destination.
+→ GitHub creates a copy under your account, e.g. https://github.com/yourusername/sample-maven-project.
+
+Option B: Clone (if you already have access)
+
+Copy the repository’s clone URL (HTTPS or SSH).
+
+Open your terminal or VS Code terminal:
+
+git clone https://github.com/yourusername/sample-maven-project.git
+
+
+Go into the project directory:
+
+cd sample-maven-project
+
+
+✅ You now have the code locally.
+
+🧩 2) Make Code Changes Locally
+
+Open the folder in your code editor (VS Code, IntelliJ, etc.).
+
+Edit a file — for example, modify a Java class or README.md:
+
+System.out.println("Hello Jenkins with Maven Build!");
+
+
+Save your changes.
+
+Stage and Commit the change
+git add .
+git commit -m "Updated message for Jenkins build"
+
+🧩 3) Push Changes to GitHub
+
+If you cloned directly:
+
+git push origin main
+
+
+If you forked and cloned your fork:
+
+git push origin main
+
+
+(Replace main with your branch name if it’s master or something else.)
+
+✅ Now your code is updated in GitHub — Jenkins will pull this code in the next step.
+
+🧩 4) Configure Jenkins Project
+Step 1: Open Jenkins Dashboard
+
+Visit your Jenkins instance (e.g., http://localhost:8080/).
+
+Step 2: Create a New Job
+
+Click “New Item”.
+
+Enter a name — e.g., Maven-Build-RollNumber.
+
+Choose Freestyle project (simpler) → Click OK.
+
+🧩 5) Configure Source Code Management (Git)
+
+In the new job’s configuration page:
+
+Under Source Code Management, select Git.
+
+Paste your GitHub repository URL (from step 3). Example:
+
+https://github.com/yourusername/sample-maven-project.git
+
+
+If it’s private, add Credentials (GitHub username/password or Personal Access Token).
+
+Specify the branch to build (usually */main).
+
+🧩 6) Configure Build Triggers
+
+Scroll to Build Triggers.
+
+Check “Poll SCM” or “GitHub hook trigger for GITScm polling”.
+
+Poll SCM: Jenkins periodically checks for changes (e.g., H/5 * * * * checks every 5 minutes).
+
+Webhook (recommended): Add a webhook in GitHub to trigger Jenkins instantly.
+
+🧩 7) Configure Build Environment and Maven Build
+Step 1: Ensure Maven is installed in Jenkins
+
+Go to Manage Jenkins → Global Tool Configuration → Maven
+Add a Maven installation (e.g., “Maven-3.9.6”).
+Let Jenkins install it automatically.
+
+Step 2: Add a Build Step
+
+In your Freestyle project:
+
+Scroll to Build → Click Add build step → Invoke top-level Maven targets.
+
+Enter:
+
+Goals:
+
+clean install
+
+
+POM: (leave as default pom.xml if in root)
+
+Click Save.
+
+This will run:
+
+mvn clean install
+
+
+— it cleans, compiles, tests, and packages your Java project.
+
+🧩 8) Configure Email Notifications
+Step 1: Set up SMTP in Jenkins
+
+Go to Manage Jenkins → System Configuration → System.
+
+Scroll to Extended E-mail Notification or E-mail Notification.
+
+Set:
+
+SMTP server: e.g., smtp.gmail.com
+
+Use SMTP Authentication: ✅
+
+Username: your Gmail address
+
+Password: your App Password (if Gmail; normal password won’t work)
+
+Use SSL: ✅
+
+SMTP Port: 465 (or 587 for TLS)
+
+Test configuration by sending a test email.
+
+Step 2: Enable Email Notification in the Job
+
+Go back to your job’s configuration.
+
+Scroll down to Post-build Actions.
+
+Click Add post-build action → E-mail Notification.
+
+Add recipient email IDs (comma separated).
+
+Check:
+
+Send e-mail for every unstable build
+
+Send e-mail for failed builds
+
+Save.
+
+✅ Now, whenever the build fails or succeeds, Jenkins will email the configured recipients.
+
+🧩 9) Build the Project
+
+In the Jenkins project page, click Build Now.
+
+Jenkins will:
+
+Pull your code from GitHub.
+
+Run the Maven build.
+
+Show a build console log under “Build History”.
+
+✅ Successful build: Green check mark.
+❌ Failed build: Red mark + email notification sent.
+
+🧩 10) (Optional) Configure GitHub Webhook for Auto-builds
+
+In your GitHub repo → Settings → Webhooks → Add webhook.
+
+Payload URL:
+
+http://<your_jenkins_url>/github-webhook/
+
+
+Content type: application/json.
+
+Select “Just the push event”.
+
+Click Add webhook.
+
+Now, every git push will automatically trigger a Jenkins build — continuous integration achieved! 🚀
+
+🧩 Summary Workflow Diagram (Conceptually)
+Developer → Git Clone → Code Edit → Git Commit → Git Push
+                ↓
+          GitHub Repository
+                ↓
+      Jenkins polls or webhook triggers build
+                ↓
+     Jenkins → Maven Build → Test → Package
+                ↓
+         Build Success/Failure Email
+
+✅ Final Checklist
+Step	Task	Tool
+1	Fork or Clone Repository	GitHub
+2	Edit code locally	VS Code / IDE
+3	Push to GitHub	Git
+4	Create Jenkins Job	Jenkins
+5	Add Git SCM URL	Jenkins
+6	Configure Maven build	Jenkins
+7	Add Email Notifications	Jenkins
+8	Run Build / Test CI	Jenkins
+9	Optional: Add Webhook	GitHub → Jenkins
+
+Would you like me to show the Jenkinsfile (pipeline script) version of this setup too (instead of Freestyle), which automates Maven + email notifications inside code?
+That’s the preferred method in real DevOps pipelines.
+
+
+
+3)
+
+Nice — below is a complete, copy-pasteable walkthrough for a simple HTML app that you can build into a Docker image, run locally, push to Docker Hub, and deploy to Kubernetes. I’ll give the exact files you need, the exact shell commands to run, and notes for local Kubernetes (minikube) vs cloud clusters.
+
+Replace placeholders like YOUR_DOCKERHUB_USERNAME and YOUR_GIT_REPO_URL with your values.
+
+1 — Project files (single-page HTML)
+
+Create a working folder and the files:
+
+mkdir simple-html-app
+cd simple-html-app
+
+
+Create index.html:
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Simple HTML App</title>
+    <style>
+      body { font-family: Arial, sans-serif; text-align:center; padding:40px; }
+      h1 { color: #2d6cdf; }
+    </style>
+  </head>
+  <body>
+    <h1>Hello from Simple HTML App</h1>
+    <p id="ver">Version: v1.0.0</p>
+  </body>
+</html>
+
+
+Create a minimal Dockerfile that serves static HTML using nginx:
+
+# Dockerfile
+FROM nginx:stable-alpine
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
+
+Create .dockerignore:
+
+.git
+
+
+Optional: initialize a git repo:
+
+git init
+git add .
+git commit -m "Initial commit: simple html app v1.0.0"
+
+2 — Build the Docker image locally
+
+Build the image (local tag):
+
+docker build -t simple-html-app:v1.0.0 .
+
+
+Check the image:
+
+docker images | grep simple-html-app
+
+3 — Run the container locally (test)
+
+Run the container mapping container port 80 to host port 8080:
+
+docker run --rm -d --name simple-html-local -p 8080:80 simple-html-app:v1.0.0
+
+
+Test with curl or browser:
+
+curl http://localhost:8080/
+# or open http://localhost:8080 in your browser
+
+
+Stop the container (when done):
+
+docker stop simple-html-local
+
+4 — Tag and push the image to Docker Hub
+4.1 Create a Docker Hub repo
+
+Go to Docker Hub and create a repository named simple-html-app under your account YOUR_DOCKERHUB_USERNAME. Set visibility to public or private as needed.
+
+4.2 Login to Docker Hub (CLI)
+docker login
+# Enter username: YOUR_DOCKERHUB_USERNAME
+# Enter password or access token
+
+4.3 Tag the image with your repo name and push
+docker tag simple-html-app:v1.0.0 YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.0.0
+docker push YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.0.0
+
+
+Verify on Docker Hub website that YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.0.0 exists.
+
+5 — Deploy to Kubernetes
+
+I’ll show a Deployment + Service. Two common cases: local cluster (minikube/kind) or cloud cluster (GKE/EKS/AKS). Both use the same manifests—only access methods differ.
+
+Create k8s-deployment.yaml:
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-html-deployment
+  labels:
+    app: simple-html
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: simple-html
+  template:
+    metadata:
+      labels:
+        app: simple-html
+    spec:
+      containers:
+      - name: simple-html
+        image: YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: simple-html-service
+spec:
+  selector:
+    app: simple-html
+  type: NodePort       # Use LoadBalancer in cloud for external IP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30080  # optional fixed NodePort
+
+
+Apply the manifest:
+
+kubectl apply -f k8s-deployment.yaml
+
+
+Check resources:
+
+kubectl get deployments
+kubectl get pods -l app=simple-html
+kubectl get svc simple-html-service
+
+Access the app
+
+Minikube:
+
+minikube service simple-html-service --url
+# opens URL or prints something like: http://192.168.xx.xx:30080
+curl $(minikube service simple-html-service --url)
+
+
+kind / Docker Desktop / Microk8s (NodePort):
+
+If cluster is local and NodePort is used, try http://localhost:30080 (Docker Desktop typically maps).
+
+If not reachable on localhost, find node IP:
+
+kubectl get nodes -o wide
+# If node IP accessible, use http://NODE_IP:30080
+
+
+Cloud (GKE/EKS/AKS):
+
+Change Service.type to LoadBalancer and the cloud provider will assign an external IP:
+
+spec:
+  type: LoadBalancer
+
+
+Apply and then:
+
+kubectl get svc simple-html-service --watch
+# wait until EXTERNAL-IP is available, then curl http://EXTERNAL-IP/
+
+6 — Make a change, rebuild, and push updated image
+
+Example: update index.html to version v1.1.0. Edit the file:
+
+<p id="ver">Version: v1.1.0 - updated!</p>
+
+
+Commit changes:
+
+git add index.html
+git commit -m "Bump to v1.1.0 - update version text"
+
+
+Build and tag new image:
+
+docker build -t simple-html-app:v1.1.0 .
+docker tag simple-html-app:v1.1.0 YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.1.0
+docker push YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.1.0
+
+7 — Update Kubernetes deployment to use new image (rolling update)
+
+Two options: kubectl set image or update manifest and kubectl apply.
+
+Option A: kubectl set image (recommended for quick update)
+kubectl set image deployment/simple-html-deployment \
+  simple-html=YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.1.0
+
+
+Check rollout status:
+
+kubectl rollout status deployment/simple-html-deployment
+kubectl get pods -l app=simple-html
+
+
+Verify new version:
+
+# get pod name
+POD=$(kubectl get pods -l app=simple-html -o jsonpath="{.items[0].metadata.name}")
+kubectl logs $POD
+# or curl the service URL again to see updated page
+
+Option B: Update manifest and apply
+
+Edit k8s-deployment.yaml (change image tag to v1.1.0) and:
+
+kubectl apply -f k8s-deployment.yaml
+kubectl rollout status deployment/simple-html-deployment
+
+8 — Rollback if something goes wrong
+
+Check rollout history:
+
+kubectl rollout history deployment/simple-html-deployment
+
+
+Rollback to previous revision (example):
+
+kubectl rollout undo deployment/simple-html-deployment
+
+
+Verify status:
+
+kubectl rollout status deployment/simple-html-deployment
+
+9 — Clean up resources (when done)
+kubectl delete -f k8s-deployment.yaml
+# or delete specific resources
+kubectl delete deployment simple-html-deployment
+kubectl delete svc simple-html-service
+
+
+Remove local docker images:
+
+docker rm -f simple-html-local || true
+docker rmi simple-html-app:v1.0.0 simple-html-app:v1.1.0 YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.1.0 || true
+
+Extra tips & best practices
+
+Use immutable tags (v1.0.0, v1.1.0) — avoid reusing latest for reproducibility.
+
+Automate builds: set up CI (GitHub Actions) to build & push Docker images on each push.
+
+ImagePullPolicy: Use IfNotPresent for stable tags, or Always for mutable tags.
+
+Registry authentication for private repos: create Kubernetes imagePullSecret and attach it to your ServiceAccount.
+
+kubectl create secret docker-registry regcred \
+  --docker-server=https://index.docker.io/v1/ \
+  --docker-username=YOUR_DOCKERHUB_USERNAME \
+  --docker-password=YOUR_PASSWORD_OR_TOKEN \
+  --docker-email=you@example.com
+
+
+Then reference it in the pod spec (imagePullSecrets).
+
+Health checks: for real apps add readinessProbe/livenessProbe.
+
+Use CI/CD to automate build → push → kubectl apply or use GitOps (ArgoCD/Flux).
+
+Quick command summary (copy-paste checklist)
+# 1. Build locally
+docker build -t simple-html-app:v1.0.0 .
+
+# 2. Test locally
+docker run --rm -d --name simple-html-local -p 8080:80 simple-html-app:v1.0.0
+curl http://localhost:8080
+
+# 3. Tag & push to Docker Hub
+docker login
+docker tag simple-html-app:v1.0.0 YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.0.0
+docker push YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.0.0
+
+# 4. Deploy to Kubernetes
+kubectl apply -f k8s-deployment.yaml
+
+# 5. Update image after change
+docker build -t simple-html-app:v1.1.0 .
+docker tag simple-html-app:v1.1.0 YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.1.0
+docker push YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.1.0
+kubectl set image deployment/simple-html-deployment simple-html=YOUR_DOCKERHUB_USERNAME/simple-html-app:v1.1.0
+kubectl rollout status deployment/simple-html-deployment
+
+
+If you want, I can:
+
+Provide a GitHub Actions workflow that builds the Docker image and pushes to Docker Hub automatically on git push.
+
+Show how to create a Kubernetes imagePullSecret and wire it into the deployment for private Docker Hub repos.
+
+Provide a kustomization.yaml for easier environment overlays.
+
+Which one do you want next?
